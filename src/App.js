@@ -3,10 +3,9 @@ import { useState } from 'react';
 import "./style.css";
 import MyFirstComponent from "./MyFirstComponent";
 
-const firstName = "John";
-
 function App() {
   const [count, setCount] = useState(0);
+  const [firstName, setFirstName] = useState("John");
 
   function increaseCount() {
     const newCount = count + 1;
@@ -14,17 +13,26 @@ function App() {
     setCount(newCount);
   }
 
+  function changeName() {
+    if (firstName === "John") {
+      setFirstName("Jane");
+    } else {
+      setFirstName("John");
+    }
+  };
+
   return (
     <>
       <h1 className="red">{firstName}</h1>
+      <button onClick={changeName}>Change Name</button>
 
-      <MyFirstComponent country="India" age="25" />
-      <MyFirstComponent country="US" age="40" />
+      <MyFirstComponent country="India" age="25" count={count} />
+      <MyFirstComponent country="US" age="40" count={count} />
 
       <br />
 
       <div>Count: {count}</div>
-      <button onClick={increaseCount}>Click Me!</button>
+      <button onClick={increaseCount}>Increase Count</button>
     </>
   );
 }
