@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import './style.css';
 
-const App8 = () => {
+const App9 = () => {
   const [isRed, setIsRed] = useState(false);
 
   return (
@@ -13,4 +13,4 @@ const App8 = () => {
   );
 };
 
-export default App8;
+export default App9;
