@@ -2,11 +2,17 @@ import { useState } from "react";
 
 import axios from "axios";
 
+import "./style.css";
+
 const App10 = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [gender, setGender] = useState("");
 
   const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [hobbies, setHobbies] = useState([]);
 
   const onFirstNameChange = (event) => {
     setFirstName(event.currentTarget.value);
@@ -15,14 +21,55 @@ const App10 = () => {
   const clearForm = () => {
     setFirstName("");
     setLastName("");
+    setAlias("");
+    setGender("");
   };
 
   const onLastNameChange = (event) => {
     setLastName(event.currentTarget.value);
   };
 
+  const onAliasChange = (event) => {
+    setAlias(event.currentTarget.value);
+  };
+
+  const onGenderChange = (event) => {
+    setGender(event.currentTarget.value);
+  };
+
+  const onHobbiesChange = (event) => {
+    const isChecked = event.currentTarget.checked;
+    const checkboxValue = event.currentTarget.value;
+
+    if (isChecked) {
+      setHobbies([...hobbies, checkboxValue]);
+    } else {
+      const newHobbies = hobbies.filter((hobby) => {
+        return hobby !== checkboxValue;
+      });
+
+      setHobbies(newHobbies);
+    }
+  };
+
+  const isFormValid = () => {
+    const isAliasValid = alias.length === 6;
+
+    if (!isAliasValid) {
+      setErrorMessage("Alias must be 6 characters long");
+    }
+
+    return isAliasValid;
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
+
+    setErrorMessage("");
+
+    if (!isFormValid()) {
+      return;
+    }
 
     const dataToSend = {
       firstName: firstName,
@@ -33,7 +80,7 @@ const App10 = () => {
 
     try {
       const res = await axios.post(
-        "https://placeholder.typicode.com/posts",
+        "https://jsonplaceholder.typicode.com/posts",
         dataToSend
       );
 
@@ -49,19 +96,111 @@ const App10 = () => {
       <fieldset>
         <legend>User Info</legend>
 
-        <label for="first_name">First Name:</label>
-        <input id="first_name" value={firstName} onChange={onFirstNameChange} />
+        <label htmlFor="first_name">First Name:</label>
+        <input
+          required
+          id="first_name"
+          value={firstName}
+          onChange={onFirstNameChange}
+        />
 
         <br />
 
-        <label for="last_name">Last Name:</label>
-        <input id="last_name" value={lastName} onChange={onLastNameChange} />
+        <label htmlFor="last_name">Last Name:</label>
+        <input
+          required
+          id="last_name"
+          value={lastName}
+          onChange={onLastNameChange}
+        />
+
+        <br />
+
+        <label htmlFor="alias">Alias:</label>
+        <input required id="alias" value={alias} onChange={onAliasChange} />
+
+        <br />
+
+        <p>Gender:</p>
+
+        <input
+          id="male"
+          type="radio"
+          name="gender"
+          value="male"
+          checked={gender === "male"}
+          onChange={onGenderChange}
+        />
+        <label htmlFor="male">Male</label>
+
+        <input
+          id="female"
+          type="radio"
+          name="gender"
+          value="female"
+          checked={gender === "female"}
+          onChange={onGenderChange}
+        />
+        <label htmlFor="female">Female</label>
+
+        <input
+          id="other"
+          type="radio"
+          name="gender"
+          value="other"
+          checked={gender === "other"}
+          onChange={onGenderChange}
+        />
+        <label htmlFor="other">Other</label>
+
+        <br />
+
+        <p>Hobbies</p>
+
+        <input
+          id="reading"
+          type="checkbox"
+          name="hobbies"
+          value="reading"
+          onChange={onHobbiesChange}
+        />
+        <label htmlFor="reading">Reading</label>
+
+        <input
+          id="writing"
+          type="checkbox"
+          name="hobbies"
+          value="writing"
+          onChange={onHobbiesChange}
+        />
+        <label htmlFor="writing">Writing</label>
+
+        <input
+          id="playing"
+          type="checkbox"
+          name="hobbies"
+          value="playing"
+          onChange={onHobbiesChange}
+        />
+        <label htmlFor="playing">Playing</label>
+
+        <input
+          id="sleeping"
+          type="checkbox"
+          name="hobbies"
+          value="sleeping"
+          onChange={onHobbiesChange}
+        />
+        <label htmlFor="sleeping">Sleeping</label>
 
         <br />
 
         <button>Submit</button>
       </fieldset>
+
       <div>{message}</div>
+
+      <div className="error">{errorMessage}</div>
     </form>
   );
 };
