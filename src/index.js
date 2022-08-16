@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App10 from "./App10";
+import App11 from "./App11";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <App10 />
+    <App11 age={40} />
 );
