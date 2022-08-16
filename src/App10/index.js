@@ -23,6 +23,7 @@ const App10 = () => {
     setLastName("");
     setAlias("");
     setGender("");
+    setHobbies([]);
   };
 
   const onLastNameChange = (event) => {
@@ -74,6 +75,9 @@ const App10 = () => {
     const dataToSend = {
       firstName: firstName,
       lastName: lastName,
+      alias: alias,
+      gender: gender,
+      hobbies: hobbies,
     };
 
     setMessage("Loading...");
@@ -85,6 +89,8 @@ const App10 = () => {
       );
 
       setMessage(`Your form has been submitted with ID ${res.data.id}`);
+      console.log(res.data);
+      
       clearForm();
     } catch (error) {
       setMessage(`Error submitting form- ${error.message}`);
@@ -162,6 +168,7 @@ const App10 = () => {
           type="checkbox"
           name="hobbies"
           value="reading"
+          checked={hobbies.includes("reading")}
           onChange={onHobbiesChange}
         />
         <label htmlFor="reading">Reading</label>
@@ -171,6 +178,7 @@ const App10 = () => {
           type="checkbox"
           name="hobbies"
           value="writing"
+          checked={hobbies.includes("writing")}
           onChange={onHobbiesChange}
         />
         <label htmlFor="writing">Writing</label>
@@ -180,6 +188,7 @@ const App10 = () => {
           type="checkbox"
           name="hobbies"
           value="playing"
+          checked={hobbies.includes("playing")}
           onChange={onHobbiesChange}
         />
         <label htmlFor="playing">Playing</label>
@@ -189,6 +198,7 @@ const App10 = () => {
           type="checkbox"
           name="hobbies"
           value="sleeping"
+          checked={hobbies.includes("sleeping")}
           onChange={onHobbiesChange}
         />
         <label htmlFor="sleeping">Sleeping</label>
