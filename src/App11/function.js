@@ -1,8 +1,10 @@
 import { useState } from "react";
+import HelloFunction from "./HelloFunction";
 
 const App = (props) => {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("John");
+  const [isHelloVisible, setIsHelloVisible] = useState(true);
 
   const increaseCount = () => {
     setCount(count + 1);
@@ -16,6 +18,10 @@ const App = (props) => {
     }
   };
 
+  const toggleHelloVisibility = () => {
+    setIsHelloVisible(!isHelloVisible);
+  };
+
   return (
     <>
       <h1>{count}</h1>
@@ -25,6 +31,11 @@ const App = (props) => {
       <button onClick={changeName}>Change Name</button>
 
       <h1>My age is {props.age}</h1>
+
+      {isHelloVisible && <HelloFunction count={count} />}
+      <button onClick={toggleHelloVisibility}>
+        Toggle Hello Visibility
+      </button>
     </>
   );
 };

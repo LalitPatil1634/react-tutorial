@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+import HelloClass from "./HelloClass";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +11,7 @@ class App extends Component {
     this.state = {
       count: 0,
       name: "John",
+      isHelloVisible: true,
     };
   }
 
@@ -25,6 +28,10 @@ class App extends Component {
     }
   };
 
+  toggleHelloVisibility = () => {
+    this.setState({ isHelloVisible: !this.state.isHelloVisible });
+  };
+
   render() {
     return (
       <>
@@ -35,6 +42,11 @@ class App extends Component {
         <button onClick={this.changeName}>Change Name</button>
 
         <h1>My age is {this.props.age}</h1>
+
+        {this.state.isHelloVisible && <HelloClass count={this.state.count} />}
+        <button onClick={this.toggleHelloVisibility}>
+          Toggle Hello Visibility
+        </button>
       </>
     );
   }
