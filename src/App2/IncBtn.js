@@ -1,9 +1,9 @@
-function IncBtn(props) {
-  const onButtonClick = () => {
-    props.setCount(props.count + 1);
-  };
+import { memo } from "react";
 
-  return <button onClick={onButtonClick}>Increase Counter</button>;
+function IncBtn(props) {
+  console.log("Render");
+
+  return <button onClick={props.onIncreaseCount}>Increase Counter</button>;
 }
 
-export default IncBtn;
+export default memo(IncBtn);
